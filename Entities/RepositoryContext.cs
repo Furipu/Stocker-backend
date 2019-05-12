@@ -55,8 +55,6 @@ namespace Entities
                 new Status { Id = 2, StatusName = "Niet Ok" });
 
             
-
-            
         }
     }
 }

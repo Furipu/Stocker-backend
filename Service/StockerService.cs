@@ -11,6 +11,7 @@ using Service.Quality;
 using Service.Status;
 using Service.Supplier;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Service
 {
@@ -190,7 +191,7 @@ namespace Service
         }
         public void DeleteCategory(int id)
         {
-            new DeleteCategoryOperation(_repository).Execute(id);
+             new DeleteCategoryOperation(_repository).Execute(id);
         }
         #endregion
         #region Location

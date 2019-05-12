@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20190512211231_updateProductVersion")]
+    partial class updateProductVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,14 +189,23 @@ namespace Entities.Migrations
 
                     b.Property<int?>("DefaultMetricId");
 
-                    b.Property<string>("Description")
-                        .IsRequired();
+                    b.Property<string>("Description");
+
+                    b.Property<decimal>("LatestPrice");
+
+                    b.Property<decimal>("LatestPricePerUnit");
 
                     b.Property<string>("LinkPdfManual");
 
                     b.Property<int?>("LocationId");
 
+                    b.Property<decimal>("LowestPrice");
+
+                    b.Property<decimal>("LowestPricePerUnit");
+
                     b.Property<int?>("MetricId");
+
+                    b.Property<int>("NumberInStock");
 
                     b.Property<string>("Picture");
 
@@ -237,13 +248,13 @@ namespace Entities.Migrations
 
                     b.Property<string>("LinkScanTicket");
 
-                    b.Property<int>("MetricId");
+                    b.Property<int?>("MetricId");
 
                     b.Property<decimal>("Price");
 
                     b.Property<decimal>("PricePerUnit");
 
-                    b.Property<int>("ProductId");
+                    b.Property<int?>("ProductId");
 
                     b.Property<int>("QuantityInStock");
 
@@ -397,13 +408,11 @@ namespace Entities.Migrations
                 {
                     b.HasOne("Entities.Models.Metric", "Metric")
                         .WithMany("ProductVersions")
-                        .HasForeignKey("MetricId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MetricId");
 
                     b.HasOne("Entities.Models.Product", "Product")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany()
+                        .HasForeignKey("ProductId");
 
                     b.HasOne("Entities.Models.Supplier", "Supplier")
                         .WithMany("ProductVersions")

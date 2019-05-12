@@ -25,12 +25,7 @@ namespace Service.Product
                 Id = product.Id,
                 ProductName = product.ProductName,
                 Description = product.Description,
-                LatestPrice = product.LatestPrice,
-                LatestPricePerUnit = product.LatestPricePerUnit,
                 LinkPdfManual = product.LinkPdfManual,
-                LowestPrice = product.LowestPrice,
-                LowestPricePerUnit = product.LowestPricePerUnit,
-                NumberInStock = product.NumberInStock,
                 Picture = product.Picture,
                 ProductIdentifier = product.ProductIdentifier
             };

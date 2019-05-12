@@ -16,5 +16,6 @@ namespace Entities.Models
         //public decimal Kilo { get; set; }
         //public decimal gram { get; set; }
         public ICollection<Product> Products { get; set; }
+        public ICollection<ProductVersion> ProductVersions { get; set; }
     }
 }

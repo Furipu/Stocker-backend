@@ -22,7 +22,8 @@ namespace Repository
                 .Include(pro => pro.Category)
                 .Include(pro => pro.Location)
                 .Include(pro => pro.Status)
-                .Include(pro => pro.Quality);
+                .Include(pro => pro.Quality)
+                .Include(pro => pro.Metric).AsNoTracking();
         }
     }
 }

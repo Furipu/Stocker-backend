@@ -17,24 +17,32 @@ namespace Service.Product
         public List<ProductModel> Execute()
         {
             var products = _repo.Product.GetAllWithInclude();
+            var productVersions = _repo.ProductVersion.GetAllWithInclude().Where(pvs => pvs.QuantityInStock != 0);
 
             var result = new List<ProductModel>();
 
             foreach (var product in products)
             {
+                var productVersionsForProduct = productVersions.Where(pvs => pvs.ProductId == product.Id).OrderByDescending(x => x.DayOfPurchase);
+
                 result.Add(new ProductModel
                 {
                     Id = product.Id,
                     ProductName = product.ProductName,
                     Description = product.Description,
-                    LatestPrice = product.LatestPrice,
-                    LatestPricePerUnit = product.LatestPricePerUnit,
                     LinkPdfManual = product.LinkPdfManual,
-                    LowestPrice = product.LowestPrice,
-                    LowestPricePerUnit = product.LowestPricePerUnit,
-                    NumberInStock = product.NumberInStock,
                     Picture = product.Picture,
                     ProductIdentifier = product.ProductIdentifier,
+                    LatestPrice = productVersionsForProduct.FirstOrDefault().Price,
+                    LatestPricePerUnit = productVersionsForProduct.FirstOrDefault().PricePerUnit,
+                    LowestPrice = productVersionsForProduct.Min(x => x.Price),
+                    LowestPricePerUnit = productVersionsForProduct.Min(x => x.PricePerUnit),
+                    NumberInStock = productVersionsForProduct.Sum(x => x.QuantityInStock),
+                    Metric = new MetricModel
+                    {
+                        Id = productVersionsForProduct.FirstOrDefault().Metric.Id,
+                        MetricName  = productVersionsForProduct.FirstOrDefault().Metric.MetricName,
+                    },
                     Brand = new BrandModel
                     {
                         Id = product.Brand.Id,
