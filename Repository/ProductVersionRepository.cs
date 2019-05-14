@@ -16,7 +16,7 @@ namespace Repository
 
         public IQueryable<ProductVersion> GetAllWithInclude()
         {
-            return _repo.ProductVersions.Include(pvs => pvs.Metric).AsNoTracking();
+            return _repo.ProductVersions.Include(pvs => pvs.Metric).Include(pvs=> pvs.Product).AsNoTracking();
         }
     }
 }

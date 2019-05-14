@@ -15,18 +15,19 @@ namespace Service.Location
         }
         public List<LocationModel> Execute()
         {
-            var locations = _repo.Location.GetAllWithInclude();
+            var locations = _repo.Location.GetAllWithInclude().ToList();
 
             var result = new List<LocationModel>();
 
             var parentLocation = locations.Where(x => x.Parent == null).ToList();
+            var parentsIdList = locations.Select(x => x.ParentId).ToList();
 
-            result = PopulateChildren(parentLocation);
+            result = PopulateChildren(parentLocation, parentsIdList);
 
             return result;
         }
 
-        private List<LocationModel> PopulateChildren(List<Entities.Models.Location> locations)
+        private List<LocationModel> PopulateChildren(List<Entities.Models.Location> locations, List<int?> parentsIdList)
         {
             var locationsList = new List<LocationModel>();
             if (locations.Any())
@@ -40,10 +41,13 @@ namespace Service.Location
                         ParentId = location.Parent?.Id,
                         Children = new List<LocationModel>()
                     };
-                    if (location.Children != null)
+
+                    if (parentsIdList.Contains(locationModel.Id))
                     {
-                        locationModel.Children = PopulateChildren(location.Children.ToList());
+                        locationModel.Children = PopulateChildren(location.Children.ToList(), parentsIdList);
                     }
+
+
                     locationsList.Add(locationModel);
                 }
             }

@@ -17,7 +17,7 @@ namespace Repository
 
         public IQueryable<Location> GetAllWithInclude()
         {
-            return _repo.Locations.Include(categorie => categorie.Children);
+            return _repo.Locations.Include(categorie => categorie.Children).AsNoTracking();
         }
     }
 }
