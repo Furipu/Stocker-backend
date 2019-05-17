@@ -58,5 +58,10 @@ namespace Contracts
         int CreateMetric(MetricModel location);
         void UpdateMetric(MetricModel location);
         void DeleteMetric(int id);
+        List<ProductVersionModel> GetAllProductVersions();
+        ProductVersionModel GetProductVersionId(int id);
+        int CreateProductVersion(ProductVersionModel productVersionModel);
+        void UpdateProductVersion(ProductVersionModel productVersionModel);
+        void DeleteProductVersion(int id);
     }
 }

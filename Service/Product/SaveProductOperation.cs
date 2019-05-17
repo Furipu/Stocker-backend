@@ -20,7 +20,18 @@ namespace Service.Product
                 Description = product.Description,
                 LinkPdfManual = product.LinkPdfManual,
                 Picture = product.Picture,
-                ProductIdentifier = product.ProductIdentifier
+                BrandId = product.BrandId,
+                MetricId = product.MetricId,
+                CategoryId = product.CategoryId,
+                LocationId = product.LocationId,
+                LowestPrice = product.LowestPrice,
+                LowestPricePerUnit = product.LowestPricePerUnit,
+                LatestPrice = product.LatestPrice,
+                latestPricePerUnit = product.LatestPricePerUnit,
+                QuantityInStock = product.QuantityInStock,
+                DefaultMetricId = product.DefaultMetricId,
+                QualityId = product.QualityId,
+                StatusId = product.StatusId
             };
             _repo.Product.Create(newProduct);
             _repo.Save();

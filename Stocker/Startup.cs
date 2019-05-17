@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -26,6 +27,12 @@ namespace Stocker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://dev-674202.okta.com/oauth2/default";
+                    options.Audience = "api://default";
+                });
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.AddDbContext<RepositoryContext>(options =>
@@ -58,6 +65,7 @@ namespace Stocker
             });
 
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

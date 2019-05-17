@@ -17,14 +17,11 @@ namespace Service.Product
         public List<ProductModel> Execute()
         {
             var products = _repo.Product.GetAllWithInclude();
-            var productVersions = _repo.ProductVersion.GetAllWithInclude().Where(pvs => pvs.QuantityInStock != 0);
 
             var result = new List<ProductModel>();
 
             foreach (var product in products)
             {
-                var productVersionsForProduct = productVersions.Where(pvs => pvs.ProductId == product.Id).OrderByDescending(x => x.DayOfPurchase);
-
                 result.Add(new ProductModel
                 {
                     Id = product.Id,
@@ -32,16 +29,22 @@ namespace Service.Product
                     Description = product.Description,
                     LinkPdfManual = product.LinkPdfManual,
                     Picture = product.Picture,
-                    ProductIdentifier = product.ProductIdentifier,
-                    LatestPrice = productVersionsForProduct.FirstOrDefault().Price,
-                    LatestPricePerUnit = productVersionsForProduct.FirstOrDefault().PricePerUnit,
-                    LowestPrice = productVersionsForProduct.Min(x => x.Price),
-                    LowestPricePerUnit = productVersionsForProduct.Min(x => x.PricePerUnit),
-                    NumberInStock = productVersionsForProduct.Sum(x => x.QuantityInStock),
+                    LatestPrice = product.LatestPrice,
+                    LatestPricePerUnit = product.latestPricePerUnit,
+                    LowestPrice = product.LowestPrice,
+                    LowestPricePerUnit = product.LowestPricePerUnit,
+                    QuantityInStock = product.QuantityInStock,                    
+                    BrandId = product.BrandId,
+                    CategoryId = product.CategoryId,
+                    DefaultMetricId = product.DefaultMetricId,
+                    LocationId = product.LocationId,
+                    MetricId = product.MetricId,
+                    QualityId = product.QualityId,
+                    StatusId = product.StatusId,
                     Metric = new MetricModel
                     {
-                        Id = productVersionsForProduct.FirstOrDefault().Metric.Id,
-                        MetricName  = productVersionsForProduct.FirstOrDefault().Metric.MetricName,
+                        Id = product.Metric.Id,
+                        MetricName  = product.Metric.MetricName,
                     },
                     Brand = new BrandModel
                     {

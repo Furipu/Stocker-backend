@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20190515191547_addPriceAndQuantityFieldsToProduct")]
+    partial class addPriceAndQuantityFieldsToProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,19 +191,20 @@ namespace Entities.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<decimal>("LatestPrice");
-
                     b.Property<string>("LinkPdfManual");
 
                     b.Property<int?>("LocationId");
 
-                    b.Property<decimal>("LowestPrice");
+                    b.Property<int>("LowestPrice");
 
-                    b.Property<decimal>("LowestPricePerUnit");
+                    b.Property<int>("LowestPricePerUnit");
 
                     b.Property<int?>("MetricId");
 
                     b.Property<string>("Picture");
+
+                    b.Property<string>("ProductIdentifier")
+                        .IsRequired();
 
                     b.Property<string>("ProductName")
                         .IsRequired();
@@ -211,8 +214,6 @@ namespace Entities.Migrations
                     b.Property<int>("QuantityInStock");
 
                     b.Property<int?>("StatusId");
-
-                    b.Property<decimal>("latestPricePerUnit");
 
                     b.HasKey("Id");
 

@@ -13,7 +13,9 @@ namespace Domain
         [Required(ErrorMessage = "DayOfPurchase is required")]
         public DateTime DayOfPurchase { get; set; }
         public DateTime? ExpirationDate { get; set; }
-        public string LinkScanTicket { get; set; }
+        public string LinkScanTicket { get; set; }        
+        public int QuantityPurchased { get; set; }
+        public int QuantityInStock { get; set; }
 
         public int ProductId { get; set; }
         public ProductModel Product { get; set; }
@@ -24,4 +26,4 @@ namespace Domain
     }
 
 }
-}
+

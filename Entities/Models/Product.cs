@@ -6,16 +6,19 @@ namespace Entities.Models
 {
     public class Product
     {
-        public int Id { get; set; }
-        [Required(ErrorMessage = "ProductIdentifier is required")]
-        public string ProductIdentifier { get; set; }
+        public int Id { get; set; }       
         [Required(ErrorMessage = "ProductName is required")]
         public string ProductName { get; set; }
-        [Required(ErrorMessage = "NumberInStock is required")]
+        [Required(ErrorMessage = "QuantityInStock is required")]
+        public int QuantityInStock { get; set; }
+        public decimal LowestPrice { get; set; }
+        public decimal LowestPricePerUnit { get; set; }
+        public decimal LatestPrice { get; set; }
+        public decimal latestPricePerUnit { get; set; }
         public string Description { get; set; }
         public string Picture { get; set; }
         public string LinkPdfManual { get; set; }
-
+        
         public int? BrandId { get; set; }
         public Brand Brand { get; set; }
         public int? CategoryId { get; set; }

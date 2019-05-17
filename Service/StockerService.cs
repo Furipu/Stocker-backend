@@ -7,6 +7,7 @@ using Service.Location;
 using Service.Metric;
 using Service.PostCity;
 using Service.Product;
+using Service.ProductVersion;
 using Service.Quality;
 using Service.Status;
 using Service.Supplier;
@@ -264,6 +265,30 @@ namespace Service
         public void DeleteMetric(int id)
         {
             new DeleteMetricOperation(_repository).Execute(id);
+        }
+        #endregion
+        #region ProductVersion
+        public List<ProductVersionModel> GetAllProductVersions()
+        {
+            return new GetAllProductVersionOperation(_repository).Execute();
+        }
+        public ProductVersionModel GetProductVersionId(int id)
+        {
+            return new GetProductVersionByIdOperation(_repository).Execute(id);
+        }
+
+        public int CreateProductVersion(ProductVersionModel productVersionModel)
+        {
+            return new SaveProductVersionOperation(_repository).Execute(productVersionModel);
+        }
+
+        public void UpdateProductVersion(ProductVersionModel productVersionModel)
+        {
+            new UpdateProductVersionOperation(_repository).Execute(productVersionModel);
+        }
+        public void DeleteProductVersion(int id)
+        {
+            new DeleteProductVersionOperation(_repository).Execute(id);
         }
         #endregion
     }
