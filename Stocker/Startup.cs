@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
+using Okta.AspNetCore;
+using Okta.Sdk;
+using Okta.Sdk.Configuration;
 using Stocker.Extensions;
 using System;
 using System.IO;
@@ -27,18 +30,25 @@ namespace Stocker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            //token okta 0073ScrmhS0OvUaaPJdJxlUPRhlYZ110ftuuZQAZpf
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = OktaDefaults.ApiAuthenticationScheme;
+                options.DefaultChallengeScheme = OktaDefaults.ApiAuthenticationScheme;
+                options.DefaultSignInScheme = OktaDefaults.ApiAuthenticationScheme;
+            })
+                .AddOktaWebApi(new OktaWebApiOptions()
                 {
-                    options.Authority = "https://dev-674202.okta.com/oauth2/default";
-                    options.Audience = "api://default";
+                    OktaDomain = "https://dev-674202.okta.com"
                 });
+            
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.AddDbContext<RepositoryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.ConfigureLoggerService();
             services.ConfigureRepositoryWrapper();
+            services.ConfigureStockerRepository();
             services.ConfigureStockerService();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

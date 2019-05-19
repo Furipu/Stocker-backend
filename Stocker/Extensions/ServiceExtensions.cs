@@ -34,6 +34,10 @@ namespace Stocker.Extensions
         {
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
+        public static void ConfigureStockerRepository( this IServiceCollection services)
+        {
+            services.AddScoped<IUserRepository, UserRepository>();
+        }
 
         public static void ConfigureStockerService(this IServiceCollection services)
         {

@@ -4,6 +4,7 @@ using Service.Brand;
 using Service.Category;
 using Service.Country;
 using Service.Location;
+using Service.User;
 using Service.Metric;
 using Service.PostCity;
 using Service.Product;
@@ -20,11 +21,13 @@ namespace Service
     {
         private ILoggerManager _logger;
         private IRepositoryWrapper _repository;
+        private IUserRepository _userRepo;
 
-        public StockerService(ILoggerManager logger, IRepositoryWrapper repository)
+        public StockerService(ILoggerManager logger, IRepositoryWrapper repository, IUserRepository userRepo)
         {
             _logger = logger;
             _repository = repository;
+            _userRepo = userRepo;
         }
         #region Status
         public List<Domain.StatusModel> GetAllStatuses()
@@ -289,6 +292,30 @@ namespace Service
         public void DeleteProductVersion(int id)
         {
             new DeleteProductVersionOperation(_repository).Execute(id);
+        }
+        #endregion
+        #region User
+        public async Task<List<UserModel>> GetAllUsers()
+        {
+            return await new GetAllUsersOperation(_userRepo).Execute();
+        }
+        public async Task<UserModel> GetUserById(string id)
+        {
+            return await new GetUserByIdOperation(_userRepo).Execute(id);
+        }
+
+        public async Task<string> CreateUser(UserModel userModel)
+        {
+            return await new SaveUserOperation(_userRepo).Execute(userModel);
+        }
+
+        public void UpdateUser(UserModel userModel)
+        {
+            new UpdateUserOperation(_userRepo).Execute(userModel);
+        }
+        public void DeleteUser(string id)
+        {
+            new DeleteUserOPeration(_userRepo).Execute(id);
         }
         #endregion
     }

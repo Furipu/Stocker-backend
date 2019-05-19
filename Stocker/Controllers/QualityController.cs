@@ -1,10 +1,12 @@
 ﻿using Contracts;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Stocker.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class QualityController : ControllerBase
     {

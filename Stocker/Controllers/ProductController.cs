@@ -1,10 +1,12 @@
 ﻿using Contracts;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Stocker.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -32,7 +34,8 @@ namespace Stocker.Controllers
         public IActionResult CreateProduct([FromBody]ProductModel product)
         {
             var id = _service.CreateProduct(product);
-            return Ok(product);
+            var newProduct = _service.GetProductById(id);
+            return Ok(newProduct);
         }
 
         [HttpPut("{id}")]
