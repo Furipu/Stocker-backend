@@ -35,15 +35,15 @@ namespace Stocker.Controllers
         [HttpPost]
         public IActionResult CreateUser([FromBody]UserModel status)
         {
-            var id = _service.CreateUser(status);
-            return Ok(status);
+            _service.CreateUser(status);
+            return NoContent();
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateUser([FromBody]UserModel status)
         {
             _service.UpdateUser(status);
-            return Ok(status);
+            return NoContent();
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(string id)

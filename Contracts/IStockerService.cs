@@ -65,7 +65,7 @@ namespace Contracts
         void DeleteProductVersion(int id);
         Task<List<UserModel>> GetAllUsers();
         Task<UserModel> GetUserById(string id);
-        Task<string> CreateUser(UserModel userModel);
+        void CreateUser(UserModel userModel);
         void UpdateUser(UserModel userModel);
         void DeleteUser(string id);
     }

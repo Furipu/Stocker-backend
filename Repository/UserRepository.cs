@@ -42,7 +42,7 @@ namespace Repository
             await user.DeactivateOrDeleteAsync();
         }
 
-        public async Task<string> CreateUser(UserModel userModel)
+        public async void CreateUser(UserModel userModel)
         {
             var client = new OktaClient(new OktaClientConfiguration
             {
@@ -65,8 +65,8 @@ namespace Repository
             });
 
             await newUser.ActivateAsync();
-
-            return newUser.Id;
+           
+            
         }
 
         public async void UpdateUser(UserModel userModel)

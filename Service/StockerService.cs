@@ -304,9 +304,9 @@ namespace Service
             return await new GetUserByIdOperation(_userRepo).Execute(id);
         }
 
-        public async Task<string> CreateUser(UserModel userModel)
+        public void CreateUser(UserModel userModel)
         {
-            return await new SaveUserOperation(_userRepo).Execute(userModel);
+            new SaveUserOperation(_userRepo).Execute(userModel);
         }
 
         public void UpdateUser(UserModel userModel)

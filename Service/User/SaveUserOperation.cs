@@ -15,10 +15,10 @@ namespace Service.User
             _repo = repo;
         }
 
-        public async Task<string> Execute(UserModel userModel)
+        public async void Execute(UserModel userModel)
         {
             userModel.Password = "Stocker123";
-            return await _repo.CreateUser(userModel);            
+            _repo.CreateUser(userModel);            
         }
     }
 }
