@@ -19,6 +19,7 @@ namespace Contracts
         IStatusRepository Status { get; }
         ISupplierRepository Supplier { get; }
         IMetricRepository Metric { get; }
+        IShopCartRepository ShopCart { get; }
         void Save();
     }
 }

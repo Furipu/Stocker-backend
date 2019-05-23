@@ -24,6 +24,7 @@ namespace Entities
         public DbSet<Quality> Qualities { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<ShopCart> ShopCarts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +40,7 @@ namespace Entities
             modelBuilder.Entity<Quality>().ToTable("Quality");
             modelBuilder.Entity<Status>().ToTable("Status");
             modelBuilder.Entity<Supplier>().ToTable("Supplier");
+            modelBuilder.Entity<ShopCart>().ToTable("ShopCart");
 
             modelBuilder.Entity<Adress>()
                 .HasOne(a => a.Brand)

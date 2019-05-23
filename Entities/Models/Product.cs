@@ -33,7 +33,8 @@ namespace Entities.Models
         public int? DefaultMetricId { get; set; }
         public Metric Metric { get; set; }
 
-        public ICollection<ProductVersion> Products { get; set; }
+        public ICollection<ProductVersion> ProductVersions { get; set; }
+        public ICollection<ShopCart> ShopCarts { get; set; }
 
     }
 }

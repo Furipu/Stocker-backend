@@ -14,6 +14,7 @@ using Service.Status;
 using Service.Supplier;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Service.ShopCart;
 
 namespace Service
 {
@@ -316,6 +317,30 @@ namespace Service
         public void DeleteUser(string id)
         {
             new DeleteUserOPeration(_userRepo).Execute(id);
+        }
+        #endregion
+        #region ShopCart
+        public List<ShopCartModel> GetAllShopCarts()
+        {
+            return new GetAllShopCartOperation(_repository).Execute();
+        }
+        public ShopCartModel GetShopCartId(int id)
+        {
+            return new GetShopCartByIdOperation(_repository).Execute(id);
+        }
+
+        public int CreateShopCart(ShopCartModel shopCartModel)
+        {
+            return new SaveShopCartOperation(_repository).Execute(shopCartModel);
+        }
+
+        public void UpdateShopCart(ShopCartModel shopCartModel)
+        {
+            new UpdateShopCartOperation(_repository).Execute(shopCartModel);
+        }
+        public void DeleteShopCart(int id)
+        {
+            new DeleteShopCartOperation(_repository).Execute(id);
         }
         #endregion
     }

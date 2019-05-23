@@ -20,6 +20,7 @@ namespace Repository
         private IStatusRepository _status;
         private ISupplierRepository _supplier;
         private IMetricRepository _metric;
+        private IShopCartRepository _shopCart;
 
         public IAdressRepository Adress
         {
@@ -179,7 +180,18 @@ namespace Repository
                 return _metric;
             }
         }
+        public IShopCartRepository ShopCart
+        {
+            get
+            {
+                if (_shopCart == null)
+                {
+                    _shopCart = new ShopCartRepository(_repoContext);
+                }
 
+                return _shopCart;
+            }
+        }
 
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {

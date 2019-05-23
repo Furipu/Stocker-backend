@@ -68,5 +68,10 @@ namespace Contracts
         void CreateUser(UserModel userModel);
         void UpdateUser(UserModel userModel);
         void DeleteUser(string id);
+        List<ShopCartModel> GetAllShopCarts();
+        ShopCartModel GetShopCartId(int id);
+        int CreateShopCart(ShopCartModel shopCartModel);
+        void UpdateShopCart(ShopCartModel shopCartModel);
+        void DeleteShopCart(int id);
     }
 }
