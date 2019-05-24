@@ -32,6 +32,13 @@ namespace Stocker.Controllers
             var shopCart = _service.GetShopCartId(id);
             return Ok(shopCart);
         }
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public IActionResult GetShopCartByProductID(int id)
+        {
+            var shopCart = _service.GetShopCartByProductID(id);
+            return Ok(shopCart);
+        }
 
         [HttpPost]
         public IActionResult CreateShopCart([FromBody]ShopCartModel shopCart)

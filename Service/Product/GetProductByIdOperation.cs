@@ -20,6 +20,11 @@ namespace Service.Product
         {
             var product = _repo.Product.GetAllWithInclude().FirstOrDefault(co => co.Id.Equals(id));
 
+            if (product == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             return new ProductModel
             {
                 Id = product.Id,

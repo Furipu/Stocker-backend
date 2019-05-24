@@ -70,6 +70,7 @@ namespace Contracts
         void DeleteUser(string id);
         List<ShopCartModel> GetAllShopCarts();
         ShopCartModel GetShopCartId(int id);
+        ShopCartModel GetShopCartByProductID(int id);
         int CreateShopCart(ShopCartModel shopCartModel);
         void UpdateShopCart(ShopCartModel shopCartModel);
         void DeleteShopCart(int id);
