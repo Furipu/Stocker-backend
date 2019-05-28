@@ -328,13 +328,13 @@ namespace Service
         {
             return new GetShopCartByIdOperation(_repository).Execute(id);
         }
-        public ShopCartModel GetShopCartByProductID(int id)
+        public ShopCartModel GetOrCreateShopCartByProductID(int id)
         {
-            return new GetShopCartByProductIdOperation(_repository).Execute(id);
+            return new GetOrCreateShopCartByProductIdOperation(_repository).Execute(id);
         }
-        public int CreateShopCart(ShopCartModel shopCartModel)
+        public int CreateOrUpdateShopCart(ShopCartModel shopCartModel)
         {
-            return new SaveShopCartOperation(_repository).Execute(shopCartModel);
+            return new SaveOrUpdateShopCartOperation(_repository).Execute(shopCartModel);
         }
 
         public void UpdateShopCart(ShopCartModel shopCartModel)

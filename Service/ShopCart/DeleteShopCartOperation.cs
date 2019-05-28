@@ -18,8 +18,13 @@ namespace Service.ShopCart
         {
 
             var shopCart = _repo.ShopCart.FindByCondition(x => x.Id == id).FirstOrDefault();
-            _repo.ShopCart.Delete(shopCart);
-            _repo.Save();
+
+            if (shopCart != null)
+            {
+                _repo.ShopCart.Delete(shopCart);
+                _repo.Save();
+            }
+
         }
     }
 }

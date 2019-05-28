@@ -8,10 +8,10 @@ using System.Text;
 
 namespace Service.ShopCart
 {
-    public class GetShopCartByProductIdOperation
+    public class GetOrCreateShopCartByProductIdOperation
     {
         private readonly IRepositoryWrapper _repo;
-        public GetShopCartByProductIdOperation(IRepositoryWrapper repo)
+        public GetOrCreateShopCartByProductIdOperation(IRepositoryWrapper repo)
         {
             _repo = repo;
         }
@@ -22,7 +22,10 @@ namespace Service.ShopCart
 
             if (shopCart == null)
             {
-                throw new ArgumentNullException();
+                return new ShopCartModel
+                {
+                    ProductId = id
+                };
             }
 
             return new ShopCartModel
