@@ -26,7 +26,22 @@ namespace Stocker.Controllers
         [HttpGet("{id}", Name = "ProductVersionById")]
         public IActionResult GetProductVersionById(int id)
         {
-            var productVersion = _service.GetProductVersionId(id);
+            var productVersion = _service.GetProductVersionById(id);
+            return Ok(productVersion);
+        }
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public IActionResult GetProductsVersionsByProductId(int id)
+        {
+            var productVersions = _service.GetProductsVersionsByProductId(id);
+            return Ok(productVersions);
+        }
+
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public IActionResult  GetDefaultProductVersionByProductId(int id)
+        {
+            var productVersion = _service.GetDefaultProductVersionByProductId(id);
             return Ok(productVersion);
         }
 

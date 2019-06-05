@@ -15,10 +15,21 @@ namespace Service.User
             _repo = repo;
         }
 
-        public async void Execute(UserModel userModel)
+        public void Execute(UserModel userModel)
         {
             userModel.Password = "Stocker123";
-            _repo.CreateUser(userModel);            
+            _repo.CreateUser(userModel);
+
+            var user = _repo.GetUserByEmail(userModel.Email);
+            
+
+            if (user != null)
+            {
+                foreach (var role in userModel.Roles)
+                {
+                    _repo.AddRoleToUser(role, user);
+                }
+            }
         }
     }
 }

@@ -276,9 +276,17 @@ namespace Service
         {
             return new GetAllProductVersionOperation(_repository).Execute();
         }
-        public ProductVersionModel GetProductVersionId(int id)
+        public ProductVersionModel GetProductVersionById(int id)
         {
             return new GetProductVersionByIdOperation(_repository).Execute(id);
+        }
+        public List<ProductVersionModel> GetProductsVersionsByProductId(int id)
+        {
+            return new GetProductVersionsByProductIdOperation(_repository).Execute(id);
+        }
+        public ProductVersionModel GetDefaultProductVersionByProductId(int id)
+        {
+            return new GetDefaultProductVersionByProductIdOperation(_repository).Execute(id);
         }
 
         public int CreateProductVersion(ProductVersionModel productVersionModel)
@@ -317,6 +325,10 @@ namespace Service
         public void DeleteUser(string id)
         {
             new DeleteUserOPeration(_userRepo).Execute(id);
+        }
+        public async Task<List<string>> GetAllRoles()
+        {
+            return await new GetAllRolesOperation(_userRepo).Execute();
         }
         #endregion
         #region ShopCart

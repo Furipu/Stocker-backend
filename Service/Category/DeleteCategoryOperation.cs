@@ -25,6 +25,13 @@ namespace Service.Category
         private void RemoveChildren(int id)
         {
             var children =  _repo.Category.FindByCondition(x => x.ParentId == id).ToList();
+            var product = _repo.Product.FindByCondition(pro => pro.CategoryId == id).FirstOrDefault();
+
+            if (product != null)
+            {
+                var childName = _repo.Category.FindByCondition(cat => cat.Id == id).FirstOrDefault().CategoryName;
+                throw new System.Exception($"There is a product that use {childName}");
+            }
 
             foreach (var child in children)
             {

@@ -26,7 +26,6 @@ namespace Domain
         public int? LocationId { get; set; }
         public int? StatusId { get; set; }
         public int? MetricId { get; set; }
-        public int? DefaultMetricId { get; set; }
         public BrandModel Brand { get; set; }
         public QualityModel Quality { get; set; }
         public CategoryModel Category { get; set; }

@@ -2,6 +2,7 @@
 using Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Service.ProductVersion
@@ -19,16 +20,16 @@ namespace Service.ProductVersion
 
             var newProductVersionModel = new Entities.Models.ProductVersion
             {
-                DayOfPurchase = productVersionModel.DayOfPurchase,
+                DayOfPurchase = Convert.ToDateTime(productVersionModel.DayOfPurchase),
                 SupplierId = productVersionModel.SupplierId,
-                ExpirationDate = productVersionModel.ExpirationDate,
+                ExpirationDate = Convert.ToDateTime(productVersionModel.ExpirationDate),
                 LinkScanTicket = productVersionModel.LinkScanTicket,
                 Price = productVersionModel.Price,
                 PricePerUnit = productVersionModel.PricePerUnit,
                 MetricId = productVersionModel.MetricId,
                 ProductId = productVersionModel.ProductId,
                 QuantityInStock = productVersionModel.QuantityInStock,
-                QuantityPurchased = productVersionModel.QuantityPurchased,
+                MetricQuantity = productVersionModel.MetricQuantity,
             };
 
             _repo.ProductVersion.Create(newProductVersionModel);

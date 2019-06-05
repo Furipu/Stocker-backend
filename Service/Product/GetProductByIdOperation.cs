@@ -36,14 +36,13 @@ namespace Service.Product
                 StatusId = product.StatusId,
                 QualityId = product.QualityId,
                 LocationId = product.LocationId,
-                DefaultMetricId = product.DefaultMetricId,
                 BrandId = product.BrandId,
                 CategoryId = product.CategoryId,
                 LowestPrice = product.LowestPrice,
                 LowestPricePerUnit = product.LowestPricePerUnit,
                 LatestPrice = product.LatestPrice,
                 LatestPricePerUnit = product.latestPricePerUnit,
-                QuantityInStock = product.QuantityInStock,
+                QuantityInStock = _repo.ProductVersion.FindByCondition(pvs => pvs.ProductId == product.Id && pvs.QuantityInStock > 0).Sum(pvs => pvs.QuantityInStock),
                 Metric = new MetricModel
                 {
                     Id = product.Metric.Id,

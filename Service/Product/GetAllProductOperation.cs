@@ -17,7 +17,7 @@ namespace Service.Product
         public List<ProductModel> Execute()
         {
             var products = _repo.Product.GetAllWithInclude();
-
+            var productVersions = _repo.ProductVersion.FindAll().Where(pvs => pvs.QuantityInStock > 0);
             var result = new List<ProductModel>();
 
             foreach (var product in products)
@@ -33,10 +33,9 @@ namespace Service.Product
                     LatestPricePerUnit = product.latestPricePerUnit,
                     LowestPrice = product.LowestPrice,
                     LowestPricePerUnit = product.LowestPricePerUnit,
-                    QuantityInStock = product.QuantityInStock,                    
+                    QuantityInStock = productVersions.Where(pvs => pvs.ProductId == product.Id).Sum(pvs => pvs.QuantityInStock),
                     BrandId = product.BrandId,
                     CategoryId = product.CategoryId,
-                    DefaultMetricId = product.DefaultMetricId,
                     LocationId = product.LocationId,
                     MetricId = product.MetricId,
                     QualityId = product.QualityId,
@@ -44,7 +43,7 @@ namespace Service.Product
                     Metric = new MetricModel
                     {
                         Id = product.Metric.Id,
-                        MetricName  = product.Metric.MetricName,
+                        MetricName = product.Metric.MetricName,
                     },
                     Brand = new BrandModel
                     {

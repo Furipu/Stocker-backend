@@ -25,8 +25,8 @@ namespace Service.ProductVersion
                 result.Add(new ProductVersionModel
                 {
                     Id = productVersion.Id,
-                    DayOfPurchase = productVersion.DayOfPurchase,
-                    ExpirationDate = productVersion.ExpirationDate,
+                    DayOfPurchase = productVersion.DayOfPurchase.ToString("yyyy-MM-dd"),
+                    ExpirationDate = productVersion.ExpirationDate?.ToString("dd-MM-yyyy"),
                     Price = productVersion.Price,
                     PricePerUnit = productVersion.PricePerUnit,
                     LinkScanTicket = productVersion.LinkScanTicket,

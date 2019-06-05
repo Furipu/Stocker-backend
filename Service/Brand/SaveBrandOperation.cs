@@ -31,8 +31,8 @@ namespace Service.Brand
                 newBrand.Adress.Street = brand.Adress.Street;
                 newBrand.Adress.StreetNumber = brand.Adress.StreetNumber;
                 newBrand.Adress.StreetBus = brand.Adress.StreetBus;
-                newBrand.Adress.PostCityId = brand.Adress.PostCity.Id;
-                newBrand.Adress.CountryId = brand.Adress.Country.Id;
+                newBrand.Adress.PostCityId = brand.Adress.PostCity?.Id;
+                newBrand.Adress.CountryId = brand.Adress.Country?.Id;
             }
 
             _repo.Brand.Create(newBrand);

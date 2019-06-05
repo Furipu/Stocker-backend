@@ -11,10 +11,10 @@ namespace Domain
         [Required(ErrorMessage = "LatestPricePerUnit is required")]
         public decimal PricePerUnit { get; set; }
         [Required(ErrorMessage = "DayOfPurchase is required")]
-        public DateTime DayOfPurchase { get; set; }
-        public DateTime? ExpirationDate { get; set; }
+        public string DayOfPurchase { get; set; }
+        public string ExpirationDate { get; set; }
         public string LinkScanTicket { get; set; }        
-        public int QuantityPurchased { get; set; }
+        public int MetricQuantity { get; set; }
         public int QuantityInStock { get; set; }
 
         public int ProductId { get; set; }

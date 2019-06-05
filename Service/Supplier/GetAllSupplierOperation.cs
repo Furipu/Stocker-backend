@@ -21,7 +21,7 @@ namespace Service.Supplier
 
             foreach (var supplier in suppliers)
             {
-                result.Add(new SupplierModel
+                var newSupplierModel = new SupplierModel
                 {
                     Id = supplier.Id,
                     SupplierName = supplier.SupplierName,
@@ -36,21 +36,32 @@ namespace Service.Supplier
                         Street = supplier.Adress.Street,
                         StreetBus = supplier.Adress.StreetBus,
                         StreetNumber = supplier.Adress.StreetNumber,
-                        PostCity = new PostCityModel
-                        {
-                            Id = supplier.Adress.PostCity.Id,
-                            PostCode = supplier.Adress.PostCity.PostCode,
-                            City = supplier.Adress.PostCity.City,
-                            Province = supplier.Adress.PostCity.Province,
-                            SubMunicipality = supplier.Adress.PostCity.SubMunicipality
-                        },
-                        Country = new CountryModel
-                        {
-                            Id = supplier.Adress.Country.Id,
-                            CountryName = supplier.Adress.Country.CountryName
-                        }
+                        PostCityId = supplier.Adress.PostCityId,
+                        CountryId = supplier.Adress.CountryId,
                     }
-                });
+                };
+                if (supplier.Adress.PostCity != null)
+                {
+
+                    newSupplierModel.Adress.PostCity = new PostCityModel
+                    {
+                        PostCode = supplier.Adress.PostCity?.PostCode,
+                        City = supplier.Adress.PostCity.City,
+                        Province = supplier.Adress.PostCity?.Province,
+                        SubMunicipality = supplier.Adress.PostCity?.SubMunicipality
+                    };
+
+                }
+                if (supplier.Adress.Country != null)
+                {
+
+                    newSupplierModel.Adress.Country = new CountryModel
+                    {
+                        CountryName = supplier.Adress.Country?.CountryName
+                    };
+                }
+
+                result.Add(newSupplierModel);
             }
 
             return result;

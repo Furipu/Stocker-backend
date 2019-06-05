@@ -31,11 +31,11 @@ namespace Service.Supplier
 
             if (supplier.Adress != null)
             {
-                newSupplier.Adress.Street = supplier.Adress.Street;
-                newSupplier.Adress.StreetNumber = supplier.Adress.StreetNumber;
-                newSupplier.Adress.StreetBus = supplier.Adress.StreetBus;
-                newSupplier.Adress.PostCityId = supplier.Adress.PostCity.Id;
-                newSupplier.Adress.CountryId = supplier.Adress.Country.Id;
+                newSupplier.Adress.Street = supplier.Adress.Street ?? "";
+                newSupplier.Adress.StreetNumber = supplier.Adress.StreetNumber ?? 0;
+                newSupplier.Adress.StreetBus = supplier.Adress.StreetBus ?? "";
+                newSupplier.Adress.PostCityId = supplier.Adress.PostCity?.Id;
+                newSupplier.Adress.CountryId = supplier.Adress.Country?.Id;
             }
 
             _repo.Supplier.Create(newSupplier);

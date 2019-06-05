@@ -6,6 +6,8 @@
         public string Street { get; set; }
         public int? StreetNumber { get; set; }
         public string StreetBus { get; set; }
+        public int? PostCityId { get; set; }
+        public int? CountryId { get; set; }
         public PostCityModel PostCity { get; set; }
         public CountryModel Country { get; set; }
 

@@ -59,7 +59,9 @@ namespace Contracts
         void UpdateMetric(MetricModel location);
         void DeleteMetric(int id);
         List<ProductVersionModel> GetAllProductVersions();
-        ProductVersionModel GetProductVersionId(int id);
+        ProductVersionModel GetProductVersionById(int id);
+        List<ProductVersionModel> GetProductsVersionsByProductId(int id);
+        ProductVersionModel GetDefaultProductVersionByProductId(int id);
         int CreateProductVersion(ProductVersionModel productVersionModel);
         void UpdateProductVersion(ProductVersionModel productVersionModel);
         void DeleteProductVersion(int id);
@@ -68,6 +70,7 @@ namespace Contracts
         void CreateUser(UserModel userModel);
         void UpdateUser(UserModel userModel);
         void DeleteUser(string id);
+        Task<List<string>> GetAllRoles();
         List<ShopCartModel> GetAllShopCarts();
         ShopCartModel GetShopCartId(int id);
         ShopCartModel GetOrCreateShopCartByProductID(int id);

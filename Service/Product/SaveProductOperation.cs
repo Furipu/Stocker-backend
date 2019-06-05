@@ -28,8 +28,6 @@ namespace Service.Product
                 LowestPricePerUnit = product.LowestPricePerUnit,
                 LatestPrice = product.LatestPrice,
                 latestPricePerUnit = product.LatestPricePerUnit,
-                QuantityInStock = product.QuantityInStock,
-                DefaultMetricId = product.DefaultMetricId,
                 QualityId = product.QualityId,
                 StatusId = product.StatusId
             };

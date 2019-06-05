@@ -12,15 +12,18 @@ namespace Repository
 {
     public class UserRepository : IUserRepository
     {
-
-        
-        public async Task<List<IUser>> FindAll()
+        private OktaClient getClient()
         {
-            var client = new OktaClient(new OktaClientConfiguration
+            return new OktaClient(new OktaClientConfiguration
             {
                 OktaDomain = "https://dev-674202.okta.com",
                 Token = "0073ScrmhS0OvUaaPJdJxlUPRhlYZ110ftuuZQAZpf"
             });
+        }
+        
+        public async Task<List<IUser>> FindAll()
+        {
+            var client = getClient();
 
             var allUsers =  await client.Users.ListUsers().ToList();
 
@@ -34,6 +37,12 @@ namespace Repository
             return users.FirstOrDefault(x => x.Id == id);
         }
 
+        public async Task<IUser> GetUserByEmail(string email)
+        {
+            var users = await FindAll();
+
+            return users.FirstOrDefault(us => us.Profile.Email == email);
+        }
         public async void DeleteUser(string id)
         {
             var user = await GetUserById(id);
@@ -44,11 +53,7 @@ namespace Repository
 
         public async void CreateUser(UserModel userModel)
         {
-            var client = new OktaClient(new OktaClientConfiguration
-            {
-                OktaDomain = "https://dev-674202.okta.com",
-                Token = "0073ScrmhS0OvUaaPJdJxlUPRhlYZ110ftuuZQAZpf"
-            });
+            var client = getClient();
 
             var newUser = await client.Users.CreateUserAsync(new CreateUserWithPasswordOptions
             {
@@ -80,6 +85,24 @@ namespace Repository
             user.Profile.Login = userModel.Login;
             
             await user.UpdateAsync();
+        }
+
+        public async void AddRoleToUser(string role, Task<IUser> user)
+        {
+            var client = getClient();
+            var checkUser = await client.Users.FirstOrDefault(x => x.Profile.Email == user.Result.Profile.Email);
+
+            var groups = await checkUser.Groups.ToList();
+
+            var checkGroups = groups.FirstOrDefault(grs => grs.Profile.Name == role);
+
+            if (checkGroups == null)
+            {
+                var group = await client.Groups.FirstOrDefault(x => x.Profile.Name == role);
+                await client.Groups.AddUserToGroupAsync(group.Id, user.Result.Id);
+            }
+           
+            
         }
       
     }

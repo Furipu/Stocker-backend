@@ -32,8 +32,6 @@ namespace Service.Product
             productToUpdate.LowestPricePerUnit = product.LowestPricePerUnit;
             productToUpdate.LatestPrice = product.LatestPrice;
             productToUpdate.latestPricePerUnit = product.LatestPricePerUnit;
-            productToUpdate.QuantityInStock = product.QuantityInStock;
-            productToUpdate.DefaultMetricId = product.DefaultMetricId;
             productToUpdate.QualityId = product.QualityId;
             productToUpdate.StatusId = product.StatusId;
 

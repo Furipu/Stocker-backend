@@ -51,6 +51,13 @@ namespace Stocker.Controllers
             _service.DeleteUser(id);
             return NoContent();
         }
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllRoles()
+        {
+            var roles = await _service.GetAllRoles();
+            return Ok(roles);
+        }
 
     }
 }

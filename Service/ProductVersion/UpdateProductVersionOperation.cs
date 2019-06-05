@@ -19,16 +19,17 @@ namespace Service.ProductVersion
         public void Execute(ProductVersionModel productVersionModel)
         {
             var productVersionToUpdate = _repo.ProductVersion.FindByCondition(x => x.Id == productVersionModel.Id).FirstOrDefault();
+              
 
             productVersionToUpdate.PricePerUnit = productVersionModel.PricePerUnit;
             productVersionToUpdate.MetricId = productVersionModel.MetricId;
             productVersionToUpdate.Price = productVersionModel.Price;
             productVersionToUpdate.ProductId = productVersionModel.ProductId;
             productVersionToUpdate.QuantityInStock = productVersionModel.QuantityInStock;
-            productVersionToUpdate.QuantityPurchased = productVersionModel.QuantityPurchased;
+            productVersionToUpdate.MetricQuantity = productVersionModel.MetricQuantity;
             productVersionToUpdate.SupplierId = productVersionModel.SupplierId;
-            productVersionToUpdate.DayOfPurchase = productVersionModel.DayOfPurchase;
-            productVersionToUpdate.ExpirationDate = productVersionModel.ExpirationDate;
+            productVersionToUpdate.DayOfPurchase = Convert.ToDateTime(productVersionModel.DayOfPurchase);
+            productVersionToUpdate.ExpirationDate = Convert.ToDateTime(productVersionModel.ExpirationDate);
             productVersionToUpdate.LinkScanTicket = productVersionModel.LinkScanTicket;
 
 

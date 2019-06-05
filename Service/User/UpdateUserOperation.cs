@@ -18,6 +18,17 @@ namespace Service.User
         public void Execute(UserModel userModel)
         {
             _repo.UpdateUser(userModel);
+
+            var user = _repo.GetUserByEmail(userModel.Email);
+
+
+            if (user != null)
+            {
+                foreach (var role in userModel.Roles)
+                {
+                    _repo.AddRoleToUser(role, user);
+                }
+            }
         }
     }
 }

@@ -9,8 +9,10 @@ namespace Contracts
     {
         Task<List<IUser>> FindAll();
         Task<IUser> GetUserById(string id);
+        Task<IUser> GetUserByEmail(string email);
         void DeleteUser(string id);
         void CreateUser(UserModel userModel);
         void UpdateUser(UserModel userModel);
+        void AddRoleToUser(string roleId, Task<IUser> userId);
     }
 }

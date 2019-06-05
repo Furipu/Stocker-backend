@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Domain;
+using Service.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,12 @@ namespace Service.ProductVersion
             return new ProductVersionModel
             {
                 Id = productVersion.Id,
-                DayOfPurchase = productVersion.DayOfPurchase,
-                ExpirationDate = productVersion.ExpirationDate,
+                DayOfPurchase = productVersion.DayOfPurchase.ToString("yyyy-MM-dd"),
+                ExpirationDate = productVersion.ExpirationDate?.ToString("dd-MM-yyyy"),
                 LinkScanTicket = productVersion.LinkScanTicket,
                 MetricId = productVersion.MetricId,
                 ProductId = productVersion.ProductId,
+                Product = new GetProductByIdOperation(_repo).Execute(id),
                 PricePerUnit = productVersion.PricePerUnit,
                 Price = productVersion.Price,
                 SupplierId = productVersion.SupplierId

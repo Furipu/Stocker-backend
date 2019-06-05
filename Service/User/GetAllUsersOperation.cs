@@ -2,6 +2,7 @@
 using Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,14 +22,24 @@ namespace Service.User
 
             foreach (var user in users)
             {
-                userModels.Add(new UserModel
+                var userGroup = await user.Groups.ToList();
+
+                var newUserModel = new UserModel
                 {
                     Id = user.Id,
                     FirstName = user.Profile.FirstName,
                     LastName = user.Profile.LastName,
                     Email = user.Profile.Email,
-                    Login = user.Profile.Login
-                });
+                    Login = user.Profile.Login,
+                    Roles = new List<string>()
+                };
+
+            foreach (var group in userGroup)
+            {
+                newUserModel.Roles.Add(group.Profile.Name);
+            }
+
+            userModels.Add(newUserModel);
             }
 
             return userModels;

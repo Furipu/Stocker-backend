@@ -7,7 +7,7 @@ namespace Entities.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Quantity is required")]
-        public int QuantityPurchased { get; set; }
+        public int MetricQuantity { get; set; }
         public int QuantityInStock { get; set; }
         [Required(ErrorMessage = "LatestPrice is required")]
         public decimal Price { get; set; }
