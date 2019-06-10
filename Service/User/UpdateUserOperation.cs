@@ -24,10 +24,7 @@ namespace Service.User
 
             if (user != null)
             {
-                foreach (var role in userModel.Roles)
-                {
-                    _repo.AddRoleToUser(role, user);
-                }
+                _repo.UpdateRoleToUser(userModel.Roles, user, true);
             }
         }
     }

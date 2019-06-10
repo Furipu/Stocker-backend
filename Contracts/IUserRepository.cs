@@ -13,6 +13,6 @@ namespace Contracts
         void DeleteUser(string id);
         void CreateUser(UserModel userModel);
         void UpdateUser(UserModel userModel);
-        void AddRoleToUser(string roleId, Task<IUser> userId);
+        void UpdateRoleToUser(List<string> roles, Task<IUser> userId, bool isUpdate);
     }
 }

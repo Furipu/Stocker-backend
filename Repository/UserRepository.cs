@@ -20,12 +20,12 @@ namespace Repository
                 Token = "0073ScrmhS0OvUaaPJdJxlUPRhlYZ110ftuuZQAZpf"
             });
         }
-        
+
         public async Task<List<IUser>> FindAll()
         {
             var client = getClient();
 
-            var allUsers =  await client.Users.ListUsers().ToList();
+            var allUsers = await client.Users.ListUsers().ToList();
 
             return allUsers;
         }
@@ -70,40 +70,56 @@ namespace Repository
             });
 
             await newUser.ActivateAsync();
-           
-            
+
+
         }
 
         public async void UpdateUser(UserModel userModel)
         {
-            
+
             var user = await GetUserById(userModel.Id);
 
             user.Profile.FirstName = userModel.FirstName;
             user.Profile.LastName = userModel.LastName;
             user.Profile.Email = userModel.Email;
             user.Profile.Login = userModel.Login;
-            
+
             await user.UpdateAsync();
         }
 
-        public async void AddRoleToUser(string role, Task<IUser> user)
+        public async void UpdateRoleToUser(List<string> roles, Task<IUser> user, bool isUpdate)
         {
             var client = getClient();
             var checkUser = await client.Users.FirstOrDefault(x => x.Profile.Email == user.Result.Profile.Email);
 
             var groups = await checkUser.Groups.ToList();
 
-            var checkGroups = groups.FirstOrDefault(grs => grs.Profile.Name == role);
-
-            if (checkGroups == null)
+            foreach (var role in roles)
             {
-                var group = await client.Groups.FirstOrDefault(x => x.Profile.Name == role);
-                await client.Groups.AddUserToGroupAsync(group.Id, user.Result.Id);
+                var checkGroups = groups.FirstOrDefault(grs => grs.Profile.Name == role);
+
+                if (checkGroups == null)
+                {
+                    var group = await client.Groups.FirstOrDefault(x => x.Profile.Name == role);
+                    await client.Groups.AddUserToGroupAsync(group.Id, user.Result.Id);
+                }
             }
-           
-            
+
+            if (isUpdate)
+            {
+                foreach (var group in groups)
+                {
+                    var checkRole = roles.FirstOrDefault(rol => rol == group.Profile.Name);
+
+                    if (checkRole == null)
+                    {
+                        var role = await client.Groups.FirstOrDefault(x => x.Profile.Name == group.Profile.Name);
+                        await client.Groups.RemoveGroupUserAsync(group.Id, user.Result.Id);
+                    }
+                }
+            }
+
         }
-      
+
     }
 }

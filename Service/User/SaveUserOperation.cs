@@ -21,14 +21,11 @@ namespace Service.User
             _repo.CreateUser(userModel);
 
             var user = _repo.GetUserByEmail(userModel.Email);
-            
+
 
             if (user != null)
             {
-                foreach (var role in userModel.Roles)
-                {
-                    _repo.AddRoleToUser(role, user);
-                }
+                _repo.UpdateRoleToUser(userModel.Roles, user, false);
             }
         }
     }
